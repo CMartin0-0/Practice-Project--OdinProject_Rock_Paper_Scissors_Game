@@ -5,15 +5,19 @@ const getComputerChoice = () => {
   let computerChoice;
   if (randomNumber >= 0 && randomNumber <= .33){
     return computerChoice = "rock";
-  } else if (randomNumber > .33 && randomNumber <= .66) {
+  } else if (randomNumber > .33 && randomNumber <= .665) {
     return computerChoice = "paper";
-  } else if (randomNumber > .66 && randomNumber <= 1){
+  } else if (randomNumber > .665 && randomNumber <= 1){
     return computerChoice = "scissors";
   }
 };
 
 const getHumanChoice = () => {
   let getChoice = prompt('Choose: Rock, Paper, or Scissors');
+  if (getChoice === null){
+    alert("Game in progress was canceled! If window does not refresh automatically after closing this, pleased manually refresh and start a new game.")
+    window.location.reload();
+  }
   let formattedChoice = getChoice.toLowerCase();
   let humanChoice;
   if (formattedChoice === 'rock'){
@@ -75,8 +79,8 @@ return [
 let computerTotal = 0;
 let humanTotal = 0;
 
-playGameBtn.addEventListener('click', () => {
-  const humanSelection = getHumanChoice();
+const playGame = (roundNumber) => {
+ const humanSelection = getHumanChoice();
   const computerSelection = getComputerChoice();
   let [ humanPoints, computerPoints ] = playRound(humanSelection, computerSelection);
 
@@ -88,11 +92,35 @@ playGameBtn.addEventListener('click', () => {
     humanTotal = humanTotal + humanPoints;
   }
 
-  console.log(humanPoints);
-  console.log(computerPoints);
-  console.log(computerTotal);
-  console.log(humanTotal);
+  console.log("Your score this round: " + humanPoints);
+  console.log("Computer's score this round: " + computerPoints);
+  console.log("Computer's Total Score: " + computerTotal);
+  console.log("Your Total Score: " + humanTotal);
 
+  if (roundNumber + 1 === 5){
+    if (humanTotal > computerTotal){
+      console.log("Game Over! Well played, you defeated the computer, with the final score of: " + humanTotal + " to " + computerTotal);
+      alert("Game Over! Well played, you defeated the computer, with the final score of: " + humanTotal + " to " + computerTotal);
+      window.location.reload();
+    } else if (humanTotal < computerTotal) {
+      console.log("Game Over! Better luck next time, the computer won this one, with a final score of: " + computerTotal + " to " + humanTotal);
+      alert("Game Over! Better luck next time, the computer won this one, with a final score of: " + computerTotal + " to " + humanTotal);
+      window.location.reload();
+    } else {
+      console.log("Game Over! It was an even match, ending in a tie, with a final score of: " + humanTotal + " to " + computerTotal);
+      alert("Game Over! It was an even match, ending in a tie, with a final score of: " + humanTotal + " to " + computerTotal);
+      window.location.reload();
+    }   
+  }
+  }
+
+
+
+playGameBtn.addEventListener('click', () => {
+
+for (let i = 0; i < 5; i++){
+  playGame(i);
+}
 });
 
 
