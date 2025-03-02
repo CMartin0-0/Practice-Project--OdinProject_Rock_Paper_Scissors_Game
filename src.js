@@ -1,4 +1,4 @@
-const playGameBtn = document.querySelector("#get-choice-btn");
+const playGameBtn = document.querySelector("#play-btn");
 
 const getComputerChoice = () => {
   let randomNumber = Math.random();
